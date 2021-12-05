@@ -1,130 +1,20 @@
 
-// import { Autocomplete } from '@material-ui/lab';
-// import React from 'react'
-// import { TextField, Grid, Paper , Typography} from '@material-ui/core';
-// import { useEffect, useState } from 'react';
-// import StyledButton from '../../components/Button';
-// import {  Route, Link, useHistory } from 'react-router-dom'; 
-
-// export const Home = (props) => {
-
-// const options = ['Lisans', 'Yüksek Lisans', 'Doktora'];
-// const countryOptions = ['Turkey', 'USA', 'Germany'];
-
-// const [value, setValue] = useState('');
-// const [countryValue, setCountryValue] = useState('');
-// const history = useHistory();
-
-
-// const onChangeValue = (data) => {
-// setValue(data);
-// }
-
-// const onChangeCountryValue = (data) => {
-// setCountryValue(data);
-// };
-
-// const onClickSave = () => {
-//   history.push({pathname: `/about`})
-// }
-
-// return(
-//     <Grid>  
-//         <Paper style={{backgroundColor: 'pink'}}>
-
-       
-//        <Grid container>
-//          <Grid item xs={4}>
-//         <Autocomplete
-//             value={value}
-//             onChange={onChangeValue}          
-//             id="controllable-states-demo"
-//             options={options}
-//             renderInput={(params) => <TextField {...params} label="Eğitim Durumu Seçiniz" />}
-//         />
-//          </Grid>
-         
-//          <Grid item xs={4} style={{marginLeft: 30}}>
-//          <Autocomplete
-//             value={countryValue}
-//             onChange={onChangeCountryValue}          
-//             id="controllable-states-demo"
-//             options={countryOptions}
-//             renderInput={(params) => <TextField {...params} label="Ülke Seçiniz" />}
-//         />
-//           </Grid>
-//          <Grid container>
-//          <Grid item xs={4}>
-//         <Autocomplete
-//             value={value}
-//             onChange={onChangeValue}          
-//             id="controllable-states-demo"
-//             options={options}
-//             renderInput={(params) => <TextField {...params} label="Eğitim Durumu Seçiniz" />}
-//         />
-//          </Grid>
-         
-//          <Grid item xs={4} style={{marginLeft: 30}}>
-//          <Autocomplete
-//             value={countryValue}
-//             onChange={onChangeCountryValue}          
-//             id="controllable-states-demo"
-//             options={countryOptions}
-//             renderInput={(params) => <TextField {...params} label="Ülke Seçiniz" />}
-//         />
-//           </Grid>
-//          </Grid>
-         
-//         <StyledButton
-//         id="secondary-button"
-//         variant='outlined'
-//         color='primary'
-//         onClick={onClickSave}   
-//         >
-//        <Typography>
-//            Kaydet
-//        </Typography>
-
-//         </StyledButton>
-
-
-
-//        </Grid>
-//        </Paper>
-//     </Grid>
-//     )
-// };
-
-// export default Home;
-
 import React, { useState } from "react";
-import {
-  Link
-} from "react-router-dom";
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import {AccessAlarm, ThreeDRotation} from '@mui/icons-material';
-import Icon from '@mui/material/Icon';
 import StyledButton from '../../components/Button';
-import { TextField, Grid, Paper , Typography} from '@material-ui/core';
+import { TextField, Grid , Typography} from '@material-ui/core';
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-
-import Toast from "../../components/toast";
-//import "./new-link.sass";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {  useHistory } from 'react-router-dom'; 
 
 const CreateLink = () => {
   const [linkName, setLinkName] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [isButtonClickable, setIsButtonClickable] = useState(true);
-  const [isToastActive, setIsToastActive] = useState(false);
   const [open, setIsOpen] = React.useState(false);
+  const history = useHistory();
  
- 
-  const onToastClosed = () => {
-    setIsToastActive(false);
-  };
-
   const validURL = (str) => {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" +
@@ -139,16 +29,12 @@ const CreateLink = () => {
     return !!pattern.test(str);
   };
 
-
-
   const checkandAddNewLink = () => {
     if (!validURL(linkUrl) || !linkName) {
-      alert("NOT VALID");
-     
-     return;
-     
+      alert("NOT VALID LINK ADDRESS");
+     return; 
     }
-    setIsOpen(true);
+   setIsOpen(true);
    addNewLinkToLocalStorage();
   };
 
@@ -161,17 +47,13 @@ const CreateLink = () => {
       createdAt: new Date(),
       id: Date.now(),
     };
-
     allLinks.unshift(link);
 
     localStorage.setItem("links", JSON.stringify(allLinks));
     setIsButtonClickable(false);
-    setIsToastActive(true);
+  
   };
 
-  const onToastUnMount = () => {
-    setIsButtonClickable(true);
-  };
 
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -186,32 +68,41 @@ const handleClose = (event, reason) => {
   setIsOpen(false);
 };
 
+const onClick = () => {
+  history.push({pathname: `/`})
+}
 
   return (
     <>
       <Grid 
       container 
       justifyContent="center"
-     // display="flex"
-      //margin="20px auto"
-     // width="350px"
       direction="column"
       spacing={1}
       alignItems='center'
       style={{marginTop: '20px'}}
-      >
-        <Link to="/">
-           <Grid item>
-            <strong>Return To List</strong>
-            </Grid>
-        </Link>
+      >   
+
+<Grid item>          
+   <Grid container>
+      <Typography>
+        <ArrowBackIcon />  
+       </Typography>
+         
+       <Typography onClick={onClick}>
+          <u><strong>Return To List</strong></u>
+       </Typography>      
+     </Grid>
+  </Grid>  
 
         <Grid item> 
             <h1>Add New Link</h1>
           </Grid>
 
-        <Grid item xs={6}>  
+      <Grid container alignItems="center" justifyContent="center">
+        <Grid item xs={4}>  
           <TextField
+          autoComplete="off"
           label="Link Name"
           variant="outlined"
           placeholder="e.g.Alphabet"
@@ -221,11 +112,15 @@ const handleClose = (event, reason) => {
           id="outlined-required"
           disabled={!isButtonClickable}
         />
-      </Grid>      
-        
-     <Grid item xs={6}>
+        </Grid>      
+      </Grid> 
+
+    <Grid container alignItems="center" justifyContent="center" style={{marginTop: '10px'}}>
+     <Grid item xs={4}>
         <TextField
+         autoComplete="off"
           variant="outlined"
+          style={{width: '100%'}}
           placeholder="e.g.http://abc.xyz"
           onChange={(e) => setLinkUrl(e.target.value)}
           id="outlined-required"
@@ -233,9 +128,12 @@ const handleClose = (event, reason) => {
           disabled={!isButtonClickable}
         />
       </Grid>
-       
-  <Grid item xs={6} style={{marginTop: '10px'}}>
-      
+   </Grid>
+
+  <Grid container alignItems="center" justifyContent="space-evenly">
+
+
+  <Grid item xs={1} style={{marginTop: '10px', marginLeft: '290px'}}>  
      <Stack spacing={2} >
       <StyledButton
        id="secondary-button"
@@ -254,20 +152,10 @@ const handleClose = (event, reason) => {
         {linkName} Added
         </Alert>
       </Snackbar>
-  
-       </Stack>
-   
-       </Grid>  
-</Grid>
-
-      {/* {isToastActive && (
-        <Toast
-          onToastClosed={onToastClosed}
-          linkName={linkName}
-          message="added."
-          onToastUnMount={onToastUnMount}
-        ></Toast>
-      )} */}
+    </Stack>
+   </Grid> 
+  </Grid>
+</Grid>    
     </>
   );
 };

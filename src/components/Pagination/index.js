@@ -1,14 +1,13 @@
 import React from "react";
-// import {
-//   faChevronLeft,
-//   faChevronRight,
-// } from "@fortawesome/free-solid-svg-icons";
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+ import {
+   faChevronLeft,
+   faChevronRight,
+ } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-//import "./pagination.sass";
-import Icon from '@mui/material/Icon';
+import "./index.sass";
+import {  Grid} from '@material-ui/core';
+
 
 const Pagination = (props) => {
   const { links } = props;
@@ -33,9 +32,9 @@ const Pagination = (props) => {
   };
 
   return (
-    <div className="pagination-container">
-      <Icon
-        icon={ArrowBackIcon}
+    <Grid container className="pagination-container">
+     <FontAwesomeIcon
+        icon={faChevronLeft}
         className="icon"
         onClick={() => {
           if (activePage > 1) {
@@ -43,9 +42,11 @@ const Pagination = (props) => {
           }
         }}
       />
-      <div className="pages-container">{generatePages()}</div>
-      <Icon
-        icon={ArrowForwardIcon}
+      <Grid className="pages-container">{generatePages()}
+      
+      </Grid>
+      <FontAwesomeIcon
+        icon={faChevronRight}
         className="icon"
         onClick={() => {
           if (activePage < pages.pop()) {
@@ -53,7 +54,7 @@ const Pagination = (props) => {
           }
         }}
       />
-    </div>
+    </Grid>
   );
 };
 

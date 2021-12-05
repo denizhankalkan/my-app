@@ -2,13 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import HomePage from './containers/HomePage';
-//import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateLink from './containers/CreateLink';
-import Linklist from './containers/LinkList';
+import Linklist from './containers/LinkListing';
 import * as serviceWorker from "./serviceWorker";
-
-
 
 ReactDOM.render(
   <React.StrictMode>

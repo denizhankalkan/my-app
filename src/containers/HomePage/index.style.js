@@ -4,5 +4,8 @@ export default function() {
         img: {
             marginLeft: '50px',
         },
+        header: {
+          fontSize: '2rem',
+        },
     };
 }
