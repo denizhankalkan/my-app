@@ -2,21 +2,24 @@
 import React, { useState } from "react";
 import StyledButton from '../../components/Button';
 import { TextField, Grid , Typography} from '@material-ui/core';
-import Stack from "@mui/material/Stack";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {  useHistory } from 'react-router-dom'; 
+import styles from './index.style';
+import { makeStyles } from '@material-ui/styles';
+import Toast from '../../components/ToastMessages';
 
 const CreateLink = () => {
   const [linkName, setLinkName] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [isButtonClickable, setIsButtonClickable] = useState(true);
-  const [open, setIsOpen] = React.useState(false);
+  const [isToastActive, setIsToastActive] = useState(false);
+
   const history = useHistory();
+  const useStyles = makeStyles(styles);
+  const classes = useStyles(); 
  
   const validURL = (str) => {
-    var pattern = new RegExp(
+    var linkPattern = new RegExp(
       "^(https?:\\/\\/)?" +
         "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
         "((\\d{1,3}\\.){3}\\d{1,3}))" +
@@ -26,7 +29,7 @@ const CreateLink = () => {
       "i"
     );
 
-    return !!pattern.test(str);
+    return !!linkPattern.test(str);
   };
 
   const checkandAddNewLink = () => {
@@ -34,7 +37,6 @@ const CreateLink = () => {
       alert("NOT VALID LINK ADDRESS");
      return; 
     }
-   setIsOpen(true);
    addNewLinkToLocalStorage();
   };
 
@@ -51,26 +53,21 @@ const CreateLink = () => {
 
     localStorage.setItem("links", JSON.stringify(allLinks));
     setIsButtonClickable(false);
-  
+    setIsToastActive(true);
   };
 
-
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-const handleClose = (event, reason) => {
-  if (reason === "clickaway") {
-    return;
-  }
-
-  setIsOpen(false);
-};
 
 const onClick = () => {
   history.push({pathname: `/`})
 }
+
+const onToastClosed = () => {
+  setIsToastActive(false);
+};
+
+const onToastUnMount = () => {
+  setIsButtonClickable(true);
+};
 
   return (
     <>
@@ -133,8 +130,7 @@ const onClick = () => {
   <Grid container alignItems="center" justifyContent="space-evenly">
 
 
-  <Grid item xs={1} style={{marginTop: '10px', marginLeft: '290px'}}>  
-     <Stack spacing={2} >
+  <Grid item xs={1} className={classes.button}>  
       <StyledButton
        id="secondary-button"
        variant='outlined'
@@ -147,12 +143,14 @@ const onClick = () => {
         </Typography>
        </StyledButton>
 
-       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-        {linkName} Added
-        </Alert>
-      </Snackbar>
-    </Stack>
+    {isToastActive && (
+        <Toast
+          onToastClosed={onToastClosed}
+          linkName={linkName}
+          message="added."
+          onToastUnMount={onToastUnMount}
+        ></Toast>
+      )}
    </Grid> 
   </Grid>
 </Grid>    
