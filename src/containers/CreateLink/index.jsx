@@ -127,14 +127,13 @@ const onToastUnMount = () => {
       </Grid>
    </Grid>
 
-  <Grid container alignItems="center" justifyContent="space-evenly">
-
-
-  <Grid item xs={1} className={classes.button}>  
+<Grid  item xs={4} container alignItems="flex-end" justifyContent="flex-end" direction="row">
+  <Grid container item xs={12} alignItems="flex-end" justifyContent="flex-end" className={classes.button}>  
       <StyledButton
        id="secondary-button"
        variant='outlined'
        color='primary'
+       style={{width: '150px'}}
        onClick={checkandAddNewLink}
        disabled={!isButtonClickable}   
          >
