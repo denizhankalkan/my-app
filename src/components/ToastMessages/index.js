@@ -4,6 +4,7 @@ import { Grid} from "@material-ui/core";
 import "./index.style.sass";
 
 const Toast = ({onToastClosed, onToastUnMount, linkName, message}) => {
+  
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {  

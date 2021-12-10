@@ -18,28 +18,28 @@ const DeletePopup = ({onDialogClosed, onDialogConfirm, selectedLink, onDialogOpe
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
   >
-    <DialogTitle id="alert-dialog-title">
-      Remove Link
-    </DialogTitle>
-    <DialogContent>
-      <DialogContentText id="alert-dialog-description">
-      Do you want to remove: {selectedLink.name} ?
-      </DialogContentText>
-    </DialogContent>
-    <DialogActions>
+      <DialogTitle id="alert-dialog-title">
+        Remove Link
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+        Do you want to remove: {selectedLink.name} ?
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
     
-      <StyledButton 
-       id="secondary-button"
-       variant='outlined'
-       color='primary'
-       onClick={onDialogConfirm} autoFocus>
-        Remove
-      </StyledButton>
-      <StyledButton
-       id="secondary-button"
-       variant='outlined'
-       color='primary'
-       onClick={onDialogClosed}>Cancel</StyledButton>
+        <StyledButton 
+        id="secondary-button"
+        variant='outlined'
+        color='primary'
+        onClick={onDialogConfirm} autoFocus>
+          Remove
+        </StyledButton>
+        <StyledButton
+        id="secondary-button"
+        variant='outlined'
+        color='primary'
+        onClick={onDialogClosed}>Cancel</StyledButton>
     </DialogActions>
   </Dialog>
     </>

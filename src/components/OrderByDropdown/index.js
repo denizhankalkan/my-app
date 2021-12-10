@@ -4,8 +4,7 @@ import styles from './index.style';
 import { makeStyles } from '@material-ui/styles';
 import {  Grid} from '@material-ui/core';
 
-const OrderByDropdown = (props) => {
-  const {onChangeDropdown} = props;
+const OrderByDropdown = ({onChangeDropdown}) => {
 
   const useStyles = makeStyles(styles);
   const classes = useStyles();

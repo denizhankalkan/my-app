@@ -36,6 +36,7 @@ const LinkCard = ({link, onDialogOpened, onUpVote, onDownVote}) => {
     </Grid>
      <DeleteIcon
     onClick={onDialogOpened}
+    className="delete-icon"
     >    
       </DeleteIcon> 
  </Grid>

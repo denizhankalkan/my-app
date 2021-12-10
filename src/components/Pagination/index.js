@@ -6,19 +6,19 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import "./index.sass";
-import {  Grid} from '@material-ui/core';
+import { Grid} from '@material-ui/core';
 
 
 const Pagination = (props) => {
   const { links } = props;
   let { activePage, setActivePage } = props;
 
-  const pages = [...Array(Math.ceil(links.length / 5)).keys()].map(
-    (value) => value + 1
-  );
+  const pages = [...Array(Math.ceil(links.length / 5)).keys()].map((value) => value + 1);
+  
 
   const generatePages = () => {
     return pages.map((page, index) => {
+       //index 0, 1 
       return (
         <span
           onClick={() => setActivePage(page)}
@@ -42,8 +42,8 @@ const Pagination = (props) => {
           }
         }}
       />
-      <Grid className="pages-container">{generatePages()}
-      
+      <Grid className="pages-container">
+      {generatePages()}
       </Grid>
       <FontAwesomeIcon
         icon={faChevronRight}

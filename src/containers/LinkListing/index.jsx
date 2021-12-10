@@ -4,7 +4,7 @@ import OrderByDropdown from "../../components/OrderByDropdown";
 import Link from "../../components/LinkCard";
 import Pagination from "../../components/Pagination";
 import Dialog from "../../components/DeletePopup";
-import {  Grid} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import PropTypes from "prop-types";
 import Toast from '../../components/ToastMessages'
 
@@ -36,7 +36,7 @@ const Linklist = () => {
     setIsToastActive(false);
   };
 
- 
+
   const onChangeDropdown = (value) => {
     let sortedLinks = [];
     if (value === "lv") {
@@ -53,7 +53,6 @@ const Linklist = () => {
         }),
       ];
     }
-
     setLinks(sortedLinks);
   };
 
@@ -91,7 +90,8 @@ const Linklist = () => {
   };
 
   const generateLinks = () => {
-    return links.slice((activePage - 1) * 5, activePage * 5).map((link) => {
+    return links.slice((activePage - 1) * 5, activePage * 5).map((link) => { 
+    
       return (
         <Link
           link={link}
@@ -117,12 +117,13 @@ const Linklist = () => {
     <Grid item xs={12}>   
       <SubmitLink/>
       </Grid>
+    
     <Grid item>
       <OrderByDropdown 
       onChangeDropdown={onChangeDropdown}
-      />
-      </Grid>
-     
+      />   
+     </Grid>
+
       <Grid>  
       {generateLinks()}
       {links.length > 5 && (
